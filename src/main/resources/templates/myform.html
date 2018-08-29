@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Form</title>
+</head>
+<body>
+
+<h1>My Form</h1>
+
+<form action="myform" method="post">
+    Write stuff: <input name="textData" type="text"/>
+    <input type="submit" value="Send"/>
+</form>
+
+Write stuff (async): <input id="inputAsync" name="textData" type="text"/>
+<input type="button" onclick="readForm()" value="Send">
+
+<p id="textAsync"></p>
+
+
+<script>
+    function readForm() {
+        let textData = document.getElementById("inputAsync").value;
+        let content = {msg: textData};
+        document.getElementById("inputAsync").value = "";
+
+        fetch('http://localhost:8080/myformAsync', { //POST-anrop
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(content)
+        }).then(function (tempvalue) {
+            console.log("This was posted: ");
+            console.log(content);
+        }).then(function (tempvalue) {
+            return fetch('http://localhost:8080/myformAsync'); //GET-anrop
+        }).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log("This was recieved: ");
+            console.log(data);
+            document.getElementById("textAsync").innerText = data.msg;
+        });
+
+    }
+</script>
+
+</body>
+</html>
+
+
