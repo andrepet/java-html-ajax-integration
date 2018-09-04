@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 @Controller
@@ -36,22 +37,19 @@ public class MixedController {
 
     @ResponseBody
     @PostMapping("/myformAsync")
-    //the uncomment method signature (get message as a String) can be used for debugging what the JSON object contains!
-//    public String myFormPostAsync(HttpSession session, @RequestBody String textData){
-    public void myFormPostAsync(HttpSession session, @RequestBody Message message) {
+    public Message myFormPostAsync(HttpSession session, @RequestBody Message message) {
         System.out.println("Received object: " + message);
-        session.setAttribute("message", message);
+        String msg = message.getMsg();
+        message.setMsg(msg.toUpperCase());
+        return message;
     }
 
     @ResponseBody
     @GetMapping("/myformAsync")
     public Message myFormGetAsync(HttpSession session) {
-        Message message = null;
-        if (session.getAttribute("message") != null) {
-            message = (Message) session.getAttribute("message");
-            String msg = message.getMsg();
-            message.setMsg(msg.toUpperCase());
-        }
+        int number = ThreadLocalRandom.current().nextInt(1, 11); //random number: [1,10]
+        Message message = new Message();
+        message.setMsg(Integer.toString(number));
         System.out.println("Send object: " + message);
         return message;
     }

@@ -13,8 +13,16 @@
     <input type="submit" value="Send"/>
 </form>
 
-Write stuff (async): <input id="inputAsync" name="textData" type="text"/>
-<input type="button" onclick="readForm()" value="Send">
+<p>
+    Write stuff (async):
+    <input id="inputAsync" name="textData" type="text"/>
+    <input type="button" onclick="readForm()" value="Send">
+</p>
+<p>
+    Get random number (1-10):
+    <input type="button" onclick="getRandomNumber()" value="Click me">
+</p>
+
 
 <p id="textAsync"></p>
 
@@ -25,17 +33,12 @@ Write stuff (async): <input id="inputAsync" name="textData" type="text"/>
         let content = {msg: textData};
         document.getElementById("inputAsync").value = "";
 
-        fetch('http://localhost:8080/myformAsync', { //POST-anrop
+        fetch('http://localhost:8080/myformAsync', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(content)
-        }).then(function (tempvalue) {
-            console.log("This was posted: ");
-            console.log(content);
-        }).then(function (tempvalue) {
-            return fetch('http://localhost:8080/myformAsync'); //GET-anrop
         }).then(function (response) {
             return response.json();
         }).then(function (data) {
@@ -43,7 +46,17 @@ Write stuff (async): <input id="inputAsync" name="textData" type="text"/>
             console.log(data);
             document.getElementById("textAsync").innerText = data.msg;
         });
+    }
 
+    function getRandomNumber(){
+        fetch('http://localhost:8080/myformAsync')
+            .then(function (response) {
+                return response.json();
+            }).then(function (data) {
+            console.log("This was recieved: ");
+            console.log(data);
+            document.getElementById("textAsync").innerText = data.msg;
+        });
     }
 </script>
 
