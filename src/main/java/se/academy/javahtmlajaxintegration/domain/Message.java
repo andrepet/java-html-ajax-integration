@@ -1,4 +1,4 @@
-package se.academy.javahtmlajaxintegration.Data;
+package se.academy.javahtmlajaxintegration.domain;
 
 public class Message {
     private String msg;

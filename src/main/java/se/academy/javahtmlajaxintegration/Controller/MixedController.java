@@ -1,6 +1,6 @@
-package se.academy.javahtmlajaxintegration.Controller;
+package se.academy.javahtmlajaxintegration.controller;
 
-import se.academy.javahtmlajaxintegration.Data.Message;
+import se.academy.javahtmlajaxintegration.domain.Message;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class MixedController {
 
     @ResponseBody
     @PostMapping("/myformAsync")
-    public Message myFormPostAsync(HttpSession session, @RequestBody Message message) {
+    public Message myFormPostAsync(@RequestBody Message message) {
         System.out.println("Received object: " + message);
         String msg = message.getMsg();
         message.setMsg(msg.toUpperCase());
@@ -46,7 +46,7 @@ public class MixedController {
 
     @ResponseBody
     @GetMapping("/myformAsync")
-    public Message myFormGetAsync(HttpSession session) {
+    public Message myFormGetAsync() {
         int number = ThreadLocalRandom.current().nextInt(1, 11); //random number: [1,10]
         Message message = new Message();
         message.setMsg(Integer.toString(number));
