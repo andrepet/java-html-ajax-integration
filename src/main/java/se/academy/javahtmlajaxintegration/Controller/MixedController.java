@@ -1,5 +1,6 @@
 package se.academy.javahtmlajaxintegration.controller;
 
+import org.springframework.ui.Model;
 import se.academy.javahtmlajaxintegration.domain.Message;
 
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @Controller
 public class MixedController {
     @GetMapping("/myform")
-    public ModelAndView myForm() {
-        return new ModelAndView("myform");
+    public String myForm() {
+        return "myform";
     }
 
     @PostMapping("/myform")
@@ -24,13 +25,14 @@ public class MixedController {
     }
 
     @GetMapping("/result")
-    public ModelAndView result(HttpSession session) {
+    public String result(HttpSession session, Model model) {
         if (session.getAttribute("textData") != null) {
             String textData = (String) session.getAttribute("textData");
-            return new ModelAndView("result").addObject("textData", textData);
+            model.addAttribute("textData", textData);
+            return "result";
         } else {
             // if you try to access "localhost:8080/result" without filling out the HTML-form, redirect to index-page
-            return new ModelAndView("redirect:/");
+            return "redirect:/";
         }
     }
 
