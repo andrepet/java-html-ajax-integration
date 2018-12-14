@@ -8,21 +8,26 @@
 
 <h1>My Form</h1>
 
-<form action="myform" method="post">
+<form action="/myform" method="post">
     Write stuff:
     <input name="textData" type="text"/>
     <input type="submit" value="Send"/>
 </form>
 
-<p>
+<form action="javascript:readForm()" method="post">
     [Ajax POST] Write stuff:
     <input id="inputAsync" name="textData" type="text"/>
-    <input type="button" onclick="readForm()" value="Send">
-</p>
+    <input type="submit" value="Send"/>
+</form>
+
 <p>
     [Ajax GET] Get random number (1-10):
     <input type="button" onclick="getRandomNumber()" value="Click me">
 </p>
+<form method="get" action="/callAjaxFromServer">
+    [Server Ajax GET] Call open API from the server and show view with data:
+    <button type="submit">Click me</button>
+</form>
 
 
 <p id="textAsync"></p>
