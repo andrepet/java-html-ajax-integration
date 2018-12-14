@@ -31,18 +31,25 @@
 <script>
     function readForm() {
         let textData = document.getElementById("inputAsync").value;
+        <!--'content' is the data we want to send -->
+        <!--in our case, 'content' is a JS object that represent an instance of the class Message in the java code-->
+        <!--'msg' is the name of the instance variable in class Message, -->
+        <!--and 'textData' is the name-attribute from the HTML input field -->
         let content = {msg: textData};
-        document.getElementById("inputAsync").value = "";
-
         fetch('http://localhost:8080/myformAsync', {
-            method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
+            method: 'post',
+            <!--Set what you want to send on 'body' and "stringify" it as a json. -->
             body: JSON.stringify(content)
-        }).then(function (response) {
+        })
+        .then(function (response) {
+            <!--"open" the Promise-response received back from the server as json. -->
+            <!--We do so by returning it to the next caller inte the function chain -->
             return response.json();
-        }).then(function (data) {
+        })
+        .then(function (data) {
             console.log("This was recieved: ");
             console.log(data);
             document.getElementById("textAsync").innerText = data.msg;

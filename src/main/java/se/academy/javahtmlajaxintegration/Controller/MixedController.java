@@ -37,10 +37,19 @@ public class MixedController {
     }
 
 
+
     @ResponseBody
     @PostMapping("/myformAsync")
+// if you want to 'see' the content of what you are receiving in the request-body, use a String like this:
+//    public Message myFormPostAsync(@RequestBody String data) {
     public Message myFormPostAsync(@RequestBody Message message) {
-        System.out.println("Received object: " + message);
+        // make sure that the class 'Message' is mapped correctly with the json data in 'message'.
+        // If they are mapped correct, Spring will automatically transform the json into a valid Java object
+        System.out.println("Received object: ");
+        System.out.println(message);
+
+        // transform the text-message inside Message-object to upper case and
+        // then return back the Message object as JSON to the caller
         String msg = message.getMsg();
         message.setMsg(msg.toUpperCase());
         return message;
