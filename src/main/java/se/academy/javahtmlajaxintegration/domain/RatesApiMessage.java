@@ -1,7 +1,10 @@
 package se.academy.javahtmlajaxintegration.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Map;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RatesApiMessage {
     private String date;
     Map<String, Double> rates;

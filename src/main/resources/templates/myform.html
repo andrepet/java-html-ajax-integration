@@ -41,7 +41,7 @@
         <!--'msg' is the name of the instance variable in class Message, -->
         <!--and 'textData' is the name-attribute from the HTML input field -->
         let content = {msg: textData};
-        fetch('http://localhost:8080/myformAsync', {
+        fetch('/myformAsync', {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -62,7 +62,7 @@
     }
 
     function getRandomNumber(){
-        fetch('http://localhost:8080/myformAsync')
+        fetch('/myformAsync')
             .then(function (response) {
                 return response.json();
             }).then(function (data) {
